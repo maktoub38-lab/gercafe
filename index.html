@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GerCafe - Bienvenue</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #F5ECD7 0%, #E5D5B7 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            font-size: 60px;
+            margin-bottom: 10px;
+        }
+
+        .cafe-name {
+            font-size: 32px;
+            font-weight: bold;
+            color: #6B3A2A;
+            margin-bottom: 5px;
+        }
+
+        .welcome-text {
+            color: #C8A97E;
+            font-size: 16px;
+        }
+
+        .table-info {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .table-number {
+            font-size: 48px;
+            font-weight: bold;
+            color: #6B3A2A;
+        }
+
+        .menu-buttons {
+            display: grid;
+            gap: 15px;
+        }
+
+        .btn {
+            background: white;
+            border: none;
+            padding: 25px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #6B3A2A 0%, #8B5A3A 100%);
+            color: white;
+        }
+
+        .btn-icon {
+            font-size: 32px;
+        }
+
+        .btn-content {
+            flex: 1;
+            text-align: left;
+            margin-left: 15px;
+        }
+
+        .btn-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .btn-subtitle {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        .btn-arrow {
+            font-size: 24px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #6B3A2A;
+            opacity: 0.6;
+            font-size: 14px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .container > * {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .container > *:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .container > *:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- En-tête -->
+        <div class="header">
+            <div class="logo">☕</div>
+            <div class="cafe-name">GerCafe</div>
+            <div class="welcome-text">Bienvenue à notre table !</div>
+        </div>
+
+        <!-- Numéro de table -->
+        <div class="table-info">
+            <div style="color: #C8A97E; font-size: 14px; margin-bottom: 5px;">VOTRE TABLE</div>
+            <div class="table-number" id="tableNumber">-</div>
+        </div>
+
+        <!-- Boutons du menu -->
+        <div class="menu-buttons">
+            <button class="btn btn-primary" onclick="afficherMenu()">
+                <span class="btn-icon">🍽️</span>
+                <div class="btn-content">
+                    <div class="btn-title">MENU</div>
+                    <div class="btn-subtitle">Voir nos produits</div>
+                </div>
+                <span class="btn-arrow">→</span>
+            </button>
+
+            <button class="btn btn-primary" onclick="passerCommande()">
+                <span class="btn-icon">📋</span>
+                <div class="btn-content">
+                    <div class="btn-title">COMMANDER</div>
+                    <div class="btn-subtitle">Passer une commande</div>
+                </div>
+                <span class="btn-arrow">→</span>
+            </button>
+
+            <button class="btn" onclick="appelServeur()">
+                <span class="btn-icon">🔔</span>
+                <div class="btn-content">
+                    <div class="btn-title">APPEL SERVEUR</div>
+                    <div class="btn-subtitle">Besoin d'aide ?</div>
+                </div>
+                <span class="btn-arrow">→</span>
+            </button>
+        </div>
+
+        <!-- Pied de page -->
+        <div class="footer">
+            Scannez le QR code de votre table pour commander
+        </div>
+    </div>
+
+    <script>
+        // Récupérer le numéro de table depuis l'URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const tableNumber = urlParams.get('table');
+        
+        // Afficher le numéro de table
+        if (tableNumber) {
+            document.getElementById('tableNumber').textContent = tableNumber;
+        } else {
+            document.getElementById('tableNumber').textContent = '?';
+        }
+
+        // Fonctions des boutons (à développer dans les prochaines étapes)
+        function afficherMenu() {
+            alert('Page Menu en construction - Prochaine étape !');
+        }
+
+        function passerCommande() {
+            alert('Page Commande en construction - Prochaine étape !');
+        }
+
+        function appelServeur() {
+            if (tableNumber) {
+                alert(`Appel serveur pour la table ${tableNumber}\nFonctionnalité en construction !`);
+            } else {
+                alert('Numéro de table non détecté');
+            }
+        }
+    </script>
+</body>
+</html>
