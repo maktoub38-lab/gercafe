@@ -1,0 +1,430 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --brun: #6B3A2A;
+  --beige: #C8A97E;
+  --creme: #F5ECD7;
+  --blanc: #FAFAF5;
+}
+
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background-color: var(--creme);
+  color: #333;
+  min-height: 100vh;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.ecran {
+  display: none;
+  min-height: 100vh;
+  padding: 0 0 80px 0;
+  flex-direction: column;
+}
+
+.ecran.actif {
+  display: flex;
+}
+
+#ecran-chargement {
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
+
+#ecran-chargement h1 {
+  color: var(--brun);
+  font-size: 2rem;
+}
+
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 5px solid var(--beige);
+  border-top-color: var(--brun);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.logo {
+  font-size: 4rem;
+  text-align: center;
+}
+
+.header-cafe {
+  background: var(--brun);
+  color: white;
+  padding: 40px 24px 32px;
+  text-align: center;
+  border-radius: 0 0 32px 32px;
+}
+
+.header-cafe .logo {
+  font-size: 3rem;
+  margin-bottom: 8px;
+}
+
+.header-cafe h1 {
+  font-size: 1.8rem;
+  margin-bottom: 4px;
+}
+
+.header-cafe p {
+  font-size: 1rem;
+  opacity: 0.85;
+}
+
+.boutons-accueil {
+  display: flex;
+  gap: 16px;
+  padding: 32px 24px 16px;
+  justify-content: center;
+}
+
+.btn-carre {
+  flex: 1;
+  max-width: 160px;
+  aspect-ratio: 1;
+  border: none;
+  border-radius: 20px;
+  background: white;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  box-shadow: 0 4px 16px rgba(107, 58, 42, 0.15);
+  transition: transform 0.15s;
+}
+
+.btn-carre:active {
+  transform: scale(0.96);
+}
+
+.btn-icone {
+  font-size: 2.5rem;
+}
+
+.btn-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--brun);
+  letter-spacing: 1px;
+}
+
+.btn-appel {
+  display: block;
+  width: calc(100% - 48px);
+  margin: 8px auto 0;
+  padding: 16px;
+  border: none;
+  border-radius: 16px;
+  background: #FB8C00;
+  color: white;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(251, 140, 0, 0.3);
+}
+
+.top-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: var(--brun);
+  color: white;
+}
+
+.top-bar h2 {
+  font-size: 1.1rem;
+  flex: 1;
+}
+
+.btn-retour {
+  border: none;
+  background: transparent;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 4px 8px;
+}
+
+.liste-produits {
+  padding: 16px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.categorie-titre {
+  background: var(--brun);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin: 16px 0 8px;
+}
+
+.produit-item {
+  display: flex;
+  align-items: center;
+  background: white;
+  border-radius: 12px;
+  padding: 12px 16px;
+  margin-bottom: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.produit-icone {
+  font-size: 1.8rem;
+  margin-right: 12px;
+}
+
+.produit-info {
+  flex: 1;
+}
+
+.produit-nom {
+  font-weight: 600;
+  color: var(--brun);
+  font-size: 0.95rem;
+}
+
+.produit-prix {
+  font-size: 0.85rem;
+  color: var(--beige);
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+.produit-compteur {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn-compteur {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid var(--brun);
+  background: white;
+  color: var(--brun);
+  font-size: 1.2rem;
+  cursor: pointer;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qte-affichage {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--brun);
+  min-width: 24px;
+  text-align: center;
+}
+
+.centre {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  padding: 32px 24px;
+  gap: 24px;
+  text-align: center;
+}
+
+.centre h2 {
+  color: var(--brun);
+  font-size: 1.4rem;
+  line-height: 1.4;
+}
+
+.personnes-icones {
+  font-size: 2rem;
+  min-height: 48px;
+  letter-spacing: 4px;
+}
+
+.compteur {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  background: white;
+  padding: 16px 32px;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+}
+
+.compteur .btn-compteur {
+  width: 44px;
+  height: 44px;
+  font-size: 1.5rem;
+}
+
+#nb-personnes {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--brun);
+  min-width: 48px;
+  text-align: center;
+}
+
+.footer-commande {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 480px;
+  background: white;
+  padding: 12px 16px;
+  box-shadow: 0 -4px 16px rgba(0,0,0,0.08);
+}
+
+.total-ligne {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--brun);
+}
+
+#total-commande, #total-recap {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--brun);
+}
+
+.btn-principal {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  background: var(--brun);
+  color: white;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn-confirmer {
+  width: 100%;
+  padding: 16px;
+  border: none;
+  border-radius: 12px;
+  background: #43A047;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.liste-recap {
+  padding: 16px;
+  flex: 1;
+  overflow-y: auto;
+  padding-bottom: 120px;
+}
+
+.recap-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin-bottom: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.recap-nom {
+  font-weight: 600;
+  color: var(--brun);
+}
+
+.recap-detail {
+  font-size: 0.85rem;
+  color: #666;
+  margin-top: 2px;
+}
+
+.recap-prix {
+  font-weight: 700;
+  color: var(--brun);
+}
+
+.ref-commande {
+  background: white;
+  border-radius: 16px;
+  padding: 16px 32px;
+  text-align: center;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+}
+
+.ref-commande p {
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 4px;
+}
+
+.ref-commande h3 {
+  font-size: 2rem;
+  color: var(--brun);
+  letter-spacing: 4px;
+}
+
+.info-table {
+  text-align: center;
+  color: var(--beige);
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 8px;
+}
+
+.boutons-fin {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.btn-payer {
+  width: 100%;
+  padding: 16px;
+  border: none;
+  border-radius: 12px;
+  background: #43A047;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn-secondaire {
+  width: 100%;
+  padding: 14px;
+  border: 2px solid var(--brun);
+  border-radius: 12px;
+  background: transparent;
+  color: var(--brun);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}

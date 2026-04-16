@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GerCafe — Commander</title>
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+</head>
+<body>
+
+  <!-- ÉCRAN CHARGEMENT -->
+  <div id="ecran-chargement" class="ecran actif">
+    <div class="logo">☕</div>
+    <h1>GerCafe</h1>
+    <div class="spinner"></div>
+  </div>
+
+  <!-- ÉCRAN ACCUEIL -->
+  <div id="ecran-accueil" class="ecran">
+    <div class="header-cafe">
+      <div class="logo">☕</div>
+      <h1>GerCafe</h1>
+      <p id="bienvenue-table">Bienvenue !</p>
+    </div>
+
+    <div class="boutons-accueil">
+      <button class="btn-carre" onclick="afficherEcran('ecran-menu')">
+        <span class="btn-icone">🍽️</span>
+        <span class="btn-label">MENU</span>
+      </button>
+
+      <button class="btn-carre" onclick="afficherEcran('ecran-personnes')">
+        <span class="btn-icone">📋</span>
+        <span class="btn-label">COMMANDER</span>
+      </button>
+    </div>
+
+    <button class="btn-appel" onclick="appelServeur()">
+      🔔 APPELER LE SERVEUR
+    </button>
+  </div>
+
+  <!-- ÉCRAN MENU -->
+  <div id="ecran-menu" class="ecran">
+    <div class="top-bar">
+      <button class="btn-retour" onclick="afficherEcran('ecran-accueil')">← Retour</button>
+      <h2>Notre Menu</h2>
+    </div>
+    <div id="liste-menu" class="liste-produits"></div>
+  </div>
+
+  <!-- ÉCRAN NOMBRE DE PERSONNES -->
+  <div id="ecran-personnes" class="ecran">
+    <div class="top-bar">
+      <button class="btn-retour" onclick="afficherEcran('ecran-accueil')">← Retour</button>
+      <h2>Combien de personnes ?</h2>
+    </div>
+    <div class="centre">
+      <div class="personnes-icones" id="icones-personnes">👤</div>
+      <div class="compteur">
+        <button class="btn-compteur" onclick="modifierPersonnes(-1)">−</button>
+        <span id="nb-personnes">1</span>
+        <button class="btn-compteur" onclick="modifierPersonnes(1)">+</button>
+      </div>
+      <button class="btn-principal" onclick="afficherEcran('ecran-commande')">
+        Suivant →
+      </button>
+    </div>
+  </div>
+
+  <!-- ÉCRAN COMMANDE -->
+  <div id="ecran-commande" class="ecran">
+    <div class="top-bar">
+      <button class="btn-retour" onclick="afficherEcran('ecran-personnes')">← Retour</button>
+      <h2>Votre commande</h2>
+    </div>
+    <p id="info-table-commande" class="info-table"></p>
+    <div id="liste-commande" class="liste-produits"></div>
+    <div class="footer-commande">
+      <div class="total-ligne">
+        <span>Total :</span>
+        <span id="total-commande">0.00 Dh</span>
+      </div>
+      <button class="btn-principal" onclick="afficherRecap()">
+        Récapitulatif →
+      </button>
+    </div>
+  </div>
+
+  <!-- ÉCRAN RÉCAPITULATIF -->
+  <div id="ecran-recap" class="ecran">
+    <div class="top-bar">
+      <button class="btn-retour" onclick="afficherEcran('ecran-commande')">← Retour</button>
+      <h2>Récapitulatif</h2>
+    </div>
+    <p id="info-table-recap" class="info-table"></p>
+    <div id="liste-recap" class="liste-recap"></div>
+    <div class="footer-commande">
+      <div class="total-ligne">
+        <span>Total :</span>
+        <span id="total-recap">0.00 Dh</span>
+      </div>
+      <button class="btn-confirmer" onclick="confirmerCommande()">
+        ✅ CONFIRMER LA COMMANDE
+      </button>
+    </div>
+  </div>
+
+  <!-- ÉCRAN ATTENTE -->
+  <div id="ecran-attente" class="ecran">
+    <div class="centre">
+      <div class="logo">☕</div>
+      <h2>Votre commande est<br/>en préparation...</h2>
+      <div class="spinner"></div>
+      <div class="ref-commande">
+        <p>Référence :</p>
+        <h3 id="ref-affichee">------</h3>
+      </div>
+      <p id="table-affichee" class="info-table"></p>
+    </div>
+  </div>
+
+  <!-- ÉCRAN SERVIE -->
+  <div id="ecran-servie" class="ecran">
+    <div class="centre">
+      <div class="logo">✅</div>
+      <h2>Bonne dégustation !</h2>
+      <p>Votre commande a été servie.</p>
+      <div class="boutons-fin">
+        <button class="btn-payer" onclick="demanderPaiement()">
+          💳 PAYER
+        </button>
+        <button class="btn-secondaire" onclick="nouvelleCommande()">
+          📋 Nouvelle commande
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ÉCRAN PAIEMENT -->
+  <div id="ecran-paiement" class="ecran">
+    <div class="centre">
+      <div class="logo">💳</div>
+      <h2>Paiement en cours...</h2>
+      <p>Le serveur va confirmer votre paiement.</p>
+      <div class="spinner"></div>
+    </div>
+  </div>
+
+  <!-- ÉCRAN MERCI -->
+  <div id="ecran-merci" class="ecran">
+    <div class="centre">
+      <div class="logo">🙏</div>
+      <h2>Merci pour votre visite !</h2>
+      <p>À bientôt au GerCafe.</p>
+      <button class="btn-principal" onclick="recommencer()">
+        Nouvelle session
+      </button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
