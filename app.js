@@ -282,6 +282,8 @@ function ecouterStatutCommande() {
     const statut = snapshot.val();
 
     if (statut === 'servie') {
+      db.ref(`tables/${numeroTable}/statut`).set('servie');
+      afficherEcran('ecran-servie');
       afficherEcran('ecran-servie');
     } else if (statut === 'payee') {
       afficherEcran('ecran-merci');
