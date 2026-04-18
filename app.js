@@ -258,7 +258,11 @@ function confirmerCommande() {
   db.ref(`commandes/${commandeRef}`)
     .set(commande)
     .then(() => {
-      return db.ref(`tables/${numeroTable}/statut`).set('en_attente');
+      // Mettre à jour le statut de la table
+      return db.ref(`tables/${numeroTable}`).update({
+        statut: 'en_attente',
+        commande_active: commandeRef
+      });
     })
     .then(() => {
       document.getElementById('ref-affichee').textContent = commandeRef;
