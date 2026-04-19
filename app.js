@@ -300,17 +300,14 @@ function ecouterStatutCommande() {
 //  APPEL SERVEUR
 // ════════════════════════════════════════════════════════════
 function appelServeur() {
-  db.ref(`tables/${numeroTable}`)
-    .update({
-      statut: 'appel_serveur',
-      appel_serveur: true,
-    })
-    .then(() => {
-      alert('✅ Le serveur a été appelé !');
-    })
-    .catch((error) => {
-      alert('Erreur: ' + error.message);
-    });
+  db.ref('tables/' + numeroTable).update({
+    appel_serveur: true,
+    statut: 'appel_serveur'
+  }).then(function() {
+    alert('✅ Le serveur a été appelé !');
+  }).catch(function(error) {
+    alert('Erreur: ' + error.message);
+  });
 }
 
 // ════════════════════════════════════════════════════════════
